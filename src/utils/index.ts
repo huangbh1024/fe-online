@@ -3,18 +3,12 @@ export const mockMenuList = [
     menuIcon: 'material-symbols:view-comfy-alt-outline-rounded',
     menuName: '组件示例',
     menuType: '1',
-    menuUrl: '/components',
+    menuUrl: '/example',
     parentId: 0,
     id: 1,
   },
-  {
-    menuIcon: '',
-    menuName: '使用naiveUI',
-    menuType: '2',
-    menuUrl: '/components/naiveUI',
-    parentId: 1,
-    id: 2,
-  },
+  { menuIcon: '', menuName: '使用naiveUI', menuType: '2', menuUrl: '/example/naiveUI', parentId: 1, id: 2 },
+  { menuIcon: '', menuName: '使用原生UI', menuType: 2, menuUrl: '/example/defaultUI', parentId: 1, id: 3 },
 ];
 
 export type DataTree<T> = T & { children?: DataTree<T>[] };

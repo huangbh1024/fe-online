@@ -1,12 +1,16 @@
 import { RouteRecordRaw } from 'vue-router';
-import { MainPage } from '@/pages/main';
+import { ExampleNaiveUIPage } from '@/pages/example/naiveUI';
 import { DefaultLayout } from '@/layout';
+import { ExampleDefaultUIPage } from '@/pages/example/defaultUI';
 
 export const commonRoutes: RouteRecordRaw[] = [
   {
-    name: 'Components',
-    path: '/components',
+    name: 'Example',
+    path: '/example',
     component: DefaultLayout,
-    children: [{ path: 'naiveUI', component: () => Promise.resolve(MainPage), meta: { title: '使用naiveUI' } }],
+    children: [
+      { path: 'naiveUI', component: () => Promise.resolve(ExampleNaiveUIPage), meta: { title: '使用naiveUI' } },
+      { path: 'defaultUI', component: () => Promise.resolve(ExampleDefaultUIPage), meta: { title: '使用原生UI' } },
+    ],
   },
 ];
