@@ -4,6 +4,7 @@ import { DefaultLayout } from '@/layout';
 import { ExampleDefaultUIPage } from '@/pages/example/defaultUI';
 
 export const commonRoutes: RouteRecordRaw[] = [
+  { name: 'Index', path: '/', redirect: '/example/naiveUI' },
   {
     name: 'Example',
     path: '/example',
