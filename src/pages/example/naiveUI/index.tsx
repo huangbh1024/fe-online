@@ -1,9 +1,23 @@
 import { Icon } from '@/components/icon';
-import { NEmpty, NLayout, NLayoutContent, NLayoutHeader, NLayoutSider, NScrollbar, NTabPane, NTabs } from 'naive-ui';
-import { NaiveOrgTree } from '../components/naiveUI/orgTree';
+import {
+  NBreadcrumb,
+  NBreadcrumbItem,
+  NEmpty,
+  NLayout,
+  NLayoutContent,
+  NLayoutHeader,
+  NLayoutSider,
+  NScrollbar,
+  NTabPane,
+  NTabs,
+} from 'naive-ui';
+import { NaiveOrgTree, NaiveOrgTreeExpose } from '../components/naiveUI/orgTree';
 
 export const ExampleNaiveUIPage = defineComponent({
   setup() {
+    const naiveOrgTreeRef = ref<NaiveOrgTreeExpose | null>(null);
+    // 监听当前选中的树节点，变化面包屑
+    const breadcrumbData = computed(() => naiveOrgTreeRef.value?.parentNodes ?? []);
     const tabOptions = shallowReactive([
       {
         id: 1,
@@ -18,12 +32,20 @@ export const ExampleNaiveUIPage = defineComponent({
               </header>
               <article class='py-12px px-5px h-[calc(100%-50px)]'>
                 <NScrollbar>
-                  <NaiveOrgTree />
+                  <NaiveOrgTree ref={naiveOrgTreeRef} />
                 </NScrollbar>
               </article>
             </NLayoutSider>
             <NLayout>
-              <NLayoutHeader></NLayoutHeader>
+              <NLayoutHeader class='h-50px border-b flex items-center'>
+                <NBreadcrumb class='ml-12px'>
+                  {breadcrumbData.value.map(breadcrumb => (
+                    <NBreadcrumbItem>
+                      <span class='ml-5px'>{breadcrumb.label}</span>
+                    </NBreadcrumbItem>
+                  ))}
+                </NBreadcrumb>
+              </NLayoutHeader>
               <NLayoutContent></NLayoutContent>
             </NLayout>
           </NLayout>
@@ -49,7 +71,7 @@ export const ExampleNaiveUIPage = defineComponent({
         >
           {tabOptions.map(tab => (
             <NTabPane key={tab.id} name={tab.value} tab={tab.label}>
-              {tab.component()}
+              <div class='flex items-center justify-center h-full w-full'>{tab.component()}</div>
             </NTabPane>
           ))}
         </NTabs>
